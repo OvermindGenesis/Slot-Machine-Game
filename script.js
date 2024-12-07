@@ -80,7 +80,6 @@ function checkWin(results) {
         totalWin += win;
     }
 
-    // Find all positions of each symbol
     const symbolPositions = {};
     results.forEach((symbol, index) => {
         if (!symbolPositions[symbol]) {
@@ -89,48 +88,40 @@ function checkWin(results) {
         symbolPositions[symbol].push(index + 1);
     });
 
-    // Process each symbol's combinations
     for (const [symbol, positions] of Object.entries(symbolPositions)) {
         if (positions.length >= 2) {
             const baseMultiplier = getSymbolMultiplier(symbol);
             
-            // Check for 5 of a kind (highest priority)
             if (positions.length === 5) {
                 const win = currentBet * baseMultiplier;
                 addWinningCombo('5x', symbol, baseMultiplier, win, 'все окна');
-                break; // Jackpot!
+                break;
             }
-
-            // Check for best possible combination
-            if (positions.length === 4) {
-                // 4 of a kind
-                const multiplier = Math.floor(baseMultiplier * 0.4);
-                const win = currentBet * multiplier;
+            else if (positions.length === 4) {
+                const multiplier = baseMultiplier * 0.4;
+                const win = Math.floor(currentBet * multiplier);
                 addWinningCombo('4x', symbol, multiplier, win, `окна ${positions.join('-')}`);
-            } else if (positions.length === 3) {
-                // 3 of a kind
-                const multiplier = Math.floor(baseMultiplier * 0.2);
-                const win = currentBet * multiplier;
+            }
+            else if (positions.length === 3) {
+                const multiplier = baseMultiplier * 0.2;
+                const win = Math.floor(currentBet * multiplier);
                 addWinningCombo('3x', symbol, multiplier, win, `окна ${positions.join('-')}`);
-            } else if (positions.length === 2) {
-                // Single pair
-                const multiplier = Math.floor(baseMultiplier * 0.1);
-                const win = currentBet * multiplier;
+            }
+            else if (positions.length === 2) {
+                const multiplier = baseMultiplier * 0.1;
+                const win = Math.floor(currentBet * multiplier);
                 addWinningCombo('2x', symbol, multiplier, win, `окна ${positions.join('-')}`);
             }
         }
     }
 
-    // Ограничиваем максимальный выигрыш относительно депозита
+    // Ограничение максимально��о выигрыша
     if (lastDepositAmount && totalWin > lastDepositAmount * 0.3) {
-        const limitedWin = lastDepositAmount * 0.3;
+        const limitedWin = Math.floor(lastDepositAmount * 0.3);
         const ratio = limitedWin / totalWin;
-        
-        // Пересчитываем все выигрыши с учетом ограничения
         winningCombinations.forEach(combo => {
             combo.win = Math.floor(combo.win * ratio);
         });
-        
         totalWin = limitedWin;
     }
 
