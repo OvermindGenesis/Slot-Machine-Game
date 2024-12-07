@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Игровой Автомат</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Digital-7&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="slot-machine">
+            <div class="display">
+                <div class="balance-section">
+                    <div class="balance-label">БАЛАНС:</div>
+                    <div class="balance-amount">₽<span id="balance">100</span></div>
+                </div>
+                <div class="bet-section">
+                    <div class="bet-label">СТАВКА:</div>
+                    <div class="bet-controls">
+                        <button id="decreaseBet">-</button>
+                        <span id="currentBet">10</span>
+                        <button id="increaseBet">+</button>
+                    </div>
+                </div>
+            </div>
+            <div class="slots-container">
+                <div class="slots">
+                    <div class="slot" id="slot1"></div>
+                    <div class="slot" id="slot2"></div>
+                    <div class="slot" id="slot3"></div>
+                    <div class="slot" id="slot4"></div>
+                    <div class="slot" id="slot5"></div>
+                </div>
+            </div>
+            <button id="spinButton">КРУТИТЬ</button>
+            <div class="money-controls">
+                <button id="depositButton">ПОПОЛНИТЬ</button>
+                <button id="withdrawButton">ВЫВЕСТИ</button>
+            </div>
+            <div class="info-section">
+                <button id="infoButton">ИНФОРМАЦИЯ О ВЫИГРЫШАХ</button>
+                <div class="info-content" id="infoContent">
+                    <div class="info-column">
+                        <h3>Базовые множители:</h3>
+                        <ul>
+                            <li>7️⃣ Seven: x100 (самый редкий)</li>
+                            <li>💎 Diamond: x50</li>
+                            <li>🎰 Slot: x25</li>
+                            <li>⭐ Star: x15</li>
+                            <li>🔔 Bell: x10</li>
+                            <li>🍒 Cherry: x5 (самый частый)</li>
+                        </ul>
+                    </div>
+                    <div class="info-column">
+                        <h3>Выигрышные комбинации:</h3>
+                        <ul>
+                            <li>5 одинаковых: 100% множителя</li>
+                            <li>4 одинаковых: 40% множителя</li>
+                            <li>3 одинаковых: 20% множителя</li>
+                            <li>2 одинаковых: 10% множителя</li>
+                            <li class="note">* Комбинации считаются по красной линии</li>
+                            <li class="note">* При наличии нескольких комбинаций учитывается лучшая</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="winModal">
+        <div class="modal-content">
+            <div class="win-animation">🎉</div>
+            <h2>ПОЗДРАВЛЯЕМ!</h2>
+            <p>Вы выиграли <span id="winAmount">0</span>₽</p>
+            <button id="closeModal">OK</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
